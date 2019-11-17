@@ -17,7 +17,7 @@ import {
 @Controller('command')
 export class CommandController {
     constructor(private commandService: CommandService, private userCommandService: UserCommandService){}
-
+//hola
     @Get()
     public async getAllCommands(@Res() res) {   
         console.log("Entre");     
