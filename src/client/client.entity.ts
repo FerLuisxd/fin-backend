@@ -1,29 +1,27 @@
 import {} from '@nestjs/typeorm'
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+// import { ClientCommandEntity} from "../client-command/client-command.entity";
 import { LetterEntity } from '../letter/letter.entity';
 
-@Entity('user')
-export class UserEntity {
+@Entity('client')
+export class ClientEntity {
 
     @PrimaryGeneratedColumn()
     id:number;
 
     @Column()
-    email:string;
+    ruc:string;
 
     @Column()
-    password:string;
+    socialNumber:string;
+
+    @Column()
+    comercialName:string;
     
-
     @Column()
-    question:string
+    address:string;
 
-    @Column()
-    answer:string
-
-
-    @OneToMany(type => LetterEntity , LetterEntity => LetterEntity.user)
+    @OneToMany(type => LetterEntity , LetterEntity => LetterEntity.client)
     letter : LetterEntity[];
-
 }
 

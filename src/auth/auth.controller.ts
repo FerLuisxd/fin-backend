@@ -18,8 +18,8 @@ export class AuthController {
         res.status(HttpStatus.OK).json(auth);
     }
     @Post('/signup')
-    public async signup(@Res() res, @Body('email') email, @Body('password') password, @Body('username') username) {
-        const auth = await this.signupService.signup(email, password, username);
+    public async signup(@Res() res, @Body()body) {
+        const auth = await this.signupService.signup(body);
         res.status(HttpStatus.OK).json(auth);
     }
 }

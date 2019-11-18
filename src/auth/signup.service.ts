@@ -13,11 +13,13 @@ export class SignUpService {
 /*******************************************************
  * SignUp user account
  *******************************************************/
-  public async signup(email,password,username){
-    let res = await this.userService.createUser(username,email,password)
+  public async signup(user){
+    let res = await this.userService.createUser(user)
     if(res.registered){
       let id = res.id
       let role = res.role
+      let email = user.email
+      let password = user.password
       return this.authHelper.genToken(({email,password,id,role}))
     }
     else{

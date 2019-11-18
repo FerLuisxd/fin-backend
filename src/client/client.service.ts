@@ -2,40 +2,39 @@ import { Injectable, HttpException } from '@nestjs/common';
 import * as uuid from 'uuid';
 // import { db } from '../db/sqlLite3';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from './user.entity';
+import { ClientEntity } from './client.entity'
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class UserService {
+export class ClientService {
   constructor(
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
+    @InjectRepository(ClientEntity)
+    private clientRepository: Repository<ClientEntity>,
   ) {
     console.log('Redy');
-    console.log(this.userRepository.find());
+    // console.log(this.clientRepository.find());
   }
   /*******************************************************
-   * Get all Users
+   * Get all Clients
    *******************************************************/
-  public getAllUsers() {
-    return this.userRepository.find();
+  public getAllClients() {
+    return this.clientRepository.find();
   }
 
   /*******************************************************
-   * Get One User by Id
+   * Get One Client by Id
    *******************************************************/
-  public async getUser(value: any) {
+  public async getClient(value: any) {
     console.log("looking",value)
 
-    let res = await this.userRepository.find({
-      select: ['id', 'email'],
-      where: { username: value },
+    let res = await this.clientRepository.find({
+      where: { clientname: value }
     });
     return res;
   }
-  public async getUserLogin(value: any) {
+  public async getClientLogin(value: any) {
     console.log("looking",value)
-    let res = await this.userRepository.find({
+    let res = await this.clientRepository.find({
       where: { email: value },
     });
     return res;
@@ -45,18 +44,27 @@ export class UserService {
 
 
   /*******************************************************
-   * Create User
+   * Create Client
    *******************************************************/
 
-  public async createUser(value:UserEntity) {
+  public async createClient(ruc: string, rs: string, nom: string,add:string) {
     let res;
     let err;
-    let emails = await this.userRepository.find({ email: value.email });
+    let clients = await this.clientRepository.find({ ruc: ruc });
+    let emails = await this.clientRepository.find({ socialNumber: rs });
     try { 
+      if (clients.length > 0) {
+        throw 'Clientname already on use';
+      }
       if (emails.length > 0) {
         throw 'Email already on use';
       }
-      res = await this.userRepository.insert(value);
+      let client = new ClientEntity();
+      client.ruc = ruc;
+      client.socialNumber = rs;
+      client.comercialName = nom;
+      client.address = add;
+      res = await this.clientRepository.insert(client);
       // console.log(res);
     } catch (e) {
       console.log(e);
@@ -74,12 +82,12 @@ export class UserService {
   }
 
   /*******************************************************
-   * Update User
+   * Update Client
    *******************************************************/
 
-  public updateUser(
+  public updateClient(
     id: String,
-    username: String,
+    clientname: String,
     email: String,
     password: String,
     role: String,
@@ -88,15 +96,15 @@ export class UserService {
   }
 
   /*******************************************************
-   * Delete User
+   * Delete Client
    *******************************************************/
 
-  public deleteUser(id: String) {
+  public deleteClient(id: String) {
     //WILL FAIL, NOT IMPLEMENTED.
     // return new Promise((resolve, reject) => {
-    //   db.run('DELETE From user WHERE id = ?', [id], err => {
+    //   db.run('DELETE From client WHERE id = ?', [id], err => {
     //     return !err
-    //       ? resolve({ message: 'User ' + id + ' has been deleted' })
+    //       ? resolve({ message: 'Client ' + id + ' has been deleted' })
     //       : reject(new HttpException(err, 500));
     //   });
     // });

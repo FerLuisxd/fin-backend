@@ -37,14 +37,10 @@ export class UserController {
   @Post()
   public async createUser(
     @Res() res,
-    @Body('username') username,
-    @Body('email') email,
-    @Body('password') password,
+    @Body() body
   ) {
     const result = await this.usersService.createUser(
-      username,
-      email,
-      password,
+        body
     );
     res.status(HttpStatus.CREATED).json(result);
   }
