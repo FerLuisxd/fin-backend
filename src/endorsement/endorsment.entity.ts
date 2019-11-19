@@ -1,6 +1,7 @@
-import { Entity, Column, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, JoinTable, OneToOne} from "typeorm";
+import { Entity, Column, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, JoinTable, OneToOne, OneToMany} from "typeorm";
 import { BuyerEntity } from "../buyer/buyer.entity";
 import { LetterEntity } from "../letter/letter.entity";
+import { CostsEntity } from "../costs/costs.entity";
 
 @Entity('endorsment')
 export class EndorsmentEntity {
@@ -35,5 +36,9 @@ export class EndorsmentEntity {
 
     @OneToOne(type=> LetterEntity,letter => letter.endorsment) 
     letter:LetterEntity
+
+    
+    @OneToMany(type => CostsEntity , costs => costs.endorsment,{ cascade: ['insert', 'update'] })
+    costs : CostsEntity[];
 }
 

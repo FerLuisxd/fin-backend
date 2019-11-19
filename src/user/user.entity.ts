@@ -24,6 +24,5 @@ export class UserEntity {
 
     @OneToMany(type => LetterEntity , LetterEntity => LetterEntity.user)
     letter : LetterEntity[];
-
 }
 
