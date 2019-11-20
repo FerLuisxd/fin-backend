@@ -21,10 +21,6 @@ export class EndorsmentEntity {
     @Column('decimal')
     discountedAmount:number
 
-
-    @Column('datetime')
-    sellDate:Date
-
     @Column('decimal')
     tcea:number
 
@@ -35,7 +31,7 @@ export class EndorsmentEntity {
     buyer:BuyerEntity;
 
     @OneToOne(type=> LetterEntity,letter => letter.endorsment) 
-    @JoinColumn(    )
+    @JoinColumn()
     letter:LetterEntity
 
     
