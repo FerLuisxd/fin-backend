@@ -19,14 +19,14 @@ export class LetterService {
         private letterRepository: Repository<LetterEntity>,
     ){}
 
-    public async getAllUserCommmand()
+    public async getAllLetters()
     {        
-        return await this.LetterRepository.find({ relations: ["user", "letter"] });
+        return await this.LetterRepository.find();
     }
 
     public async getLetterByUser(userID: any)
     {
-        let res = await this.LetterRepository.find({where: {user:userID}, relations: ["user", "letter"]})
+        let res = await this.LetterRepository.find({where: {user:userID}})
         // if (res.length <1){ throw 'This user doesnt have letters.';}
         console.log(res.length);
         return res;

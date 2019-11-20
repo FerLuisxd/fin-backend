@@ -19,7 +19,7 @@ export class LetterController {
 
     @Get()
     public async getAllLetters(@Res() res, @Req() req){
-        const Letters = await this.LetterService.getAllUserCommmand();
+        const Letters = await this.LetterService.getAllLetters();
         console.log(req.payload);
         
         

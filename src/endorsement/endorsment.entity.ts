@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, JoinTable, OneToOne, OneToMany} from "typeorm";
+import { Entity, Column, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, JoinTable, OneToOne, OneToMany, JoinColumn} from "typeorm";
 import { BuyerEntity } from "../buyer/buyer.entity";
 import { LetterEntity } from "../letter/letter.entity";
 import { CostsEntity } from "../costs/costs.entity";
@@ -35,6 +35,7 @@ export class EndorsmentEntity {
     buyer:BuyerEntity;
 
     @OneToOne(type=> LetterEntity,letter => letter.endorsment) 
+    @JoinColumn(    )
     letter:LetterEntity
 
     
