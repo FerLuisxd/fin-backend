@@ -3,7 +3,8 @@ import { AuthHelper } from './auth.helper';
 // import { db } from '../db/sqlLite3';
 import { UserService } from '../user/user.service';
 
-let key = process.env.KEY||'dsaadsadsadsafsads2adsa';
+let key = process.env.KEY||'key1234567788888888212';
+
  //update
 // Create an encryptor:
 let encryptor = require('simple-encryptor')(key);
@@ -29,7 +30,9 @@ export class LoginService {
       let row = await this.userService.getUserLogin(email);
       // console.log(row)
       if(row){
-      if(row[0].password != encryptedPass){
+      let passBD = encryptor.decrypt(row[0].password);
+      let pass = encryptor.decrypt(encryptedPass);
+      if(passBD != pass){
         return reject(new HttpException("Incorrect password", 401))
       }
       else{
