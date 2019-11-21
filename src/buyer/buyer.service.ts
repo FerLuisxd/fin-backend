@@ -21,7 +21,7 @@ export class BuyerService {
 
     public async getAllUserCommmand()
     {        
-        return await this.BuyerRepository.find({ relations: ["user", "buyer"] });
+        return await this.BuyerRepository.find();
     }
 
     public async getBuyerByUser(userID: any)

@@ -14,18 +14,13 @@ export class EndorsmentEntity {
     @Column('datetime')
     paidDate:Date
 
-
-    @Column()
-    name:number
-
     @Column('decimal')
     discountedAmount:number
 
     @Column('decimal')
     tcea:number
 
-    @Column()
-    ruc:number
+
 
     @ManyToOne(type=>BuyerEntity, buyer => buyer.endorsment,{onDelete: 'CASCADE'})
     buyer:BuyerEntity;
