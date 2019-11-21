@@ -30,7 +30,7 @@ export class EndorsmentEntity {
     @ManyToOne(type=>BuyerEntity, buyer => buyer.endorsment,{onDelete: 'CASCADE'})
     buyer:BuyerEntity;
 
-    @OneToOne(type=> LetterEntity,letter => letter.endorsment,{onDelete: 'CASCADE',cascade:['update']}) 
+    @OneToOne(type=> LetterEntity,letter => letter.endorsment) 
     @JoinColumn()
     letter:LetterEntity
 
