@@ -11,11 +11,13 @@ export class LetterEntity {//a
     @Column()
     correlative:string
 
-    @ManyToOne(type=>UserEntity, user => user.letter,{onDelete: 'CASCADE'})
-    user:UserEntity;
 
-    @ManyToOne(type=>UserEntity, client => client.letter,{onDelete: 'CASCADE'})
+    @ManyToOne(type=>ClientEntity   , client => client.letter,{eager:true,onDelete: 'CASCADE'})
     client:ClientEntity;
+
+
+    @ManyToOne(type=>UserEntity, user => user.letter,{eager:true,onDelete: 'CASCADE'})
+    user:UserEntity;
 
     @Column('datetime')
     startDate: Date
@@ -23,13 +25,13 @@ export class LetterEntity {//a
     @Column({type: 'datetime'})
     endDate: Date
 
-    @Column({type: 'decimal'})
+    @Column({type:'decimal',precision:10,scale:2})
     nominalValue: number
 
     @Column()
     moneyType:string
 
-    @OneToOne(type=> EndorsmentEntity,endorsment => endorsment.letter,{nullable:true}) 
+    @OneToOne(type=> EndorsmentEntity,endorsment => endorsment.letter,{eager:true,nullable:true,onDelete:'CASCADE'}) 
     @JoinColumn()
     endorsment:EndorsmentEntity
  

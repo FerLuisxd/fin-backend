@@ -18,12 +18,14 @@ export class EndorsmentService {
 
     public async getAllEndorsment()
     {        
-        return await this.endorsmentRepository.find({ relations: ["user", "endorsment"] });
+        return await this.endorsmentRepository.find({ relations: ["letter"] });
     }
 
     public async getEndorsmentByUser(userID: any)
     {
-        let res = await this.endorsmentRepository.find({where: {user:userID}, relations: ["user", "endorsment"]})
+        let res = await this.endorsmentRepository.find({where: {letter:{
+            user:userID
+        }}, relations: ["letter"] })
         // if (res.length <1){ throw 'This user doesnt have endorsments.';}
         console.log(res.length);
         return res;
@@ -83,19 +85,19 @@ export class EndorsmentService {
         );
     }
 
-    public async createEndorsment(userid: number, endorsment: EndorsmentEntity)
+    public async createEndorsment(endorsment: EndorsmentEntity)
     {
         let res;
         let err;
-        let today = new Date();
-        let NewEndorsment = new EndorsmentEntity();
+        // let today = new Date();
+        // let NewEndorsment = new EndorsmentEntity();
       
         try {            
             // let user = await this.userRepository.findOne({id:userid});
             // NewEndorsment.endorsment = endorsment;
             // NewEndorsment.user = user;
             // NewEndorsment.registerDate = today;
-            // res = await this.endorsmentRepository.insert(NewEndorsment);
+            res = await this.endorsmentRepository.save(endorsment);
 
         } catch (error) {
             console.log(error);
@@ -106,7 +108,7 @@ export class EndorsmentService {
             err || {
                 message: 'Created',
                 created: true,
-                id: NewEndorsment.id,
+                id: endorsment.id,
             }
         );
     }

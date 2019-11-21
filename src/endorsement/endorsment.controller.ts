@@ -36,8 +36,11 @@ export class EndorsmentController {
         const result = await this.endorsmentService.editEndorsment(updatedEndorsment,id);
         res.status(HttpStatus.ACCEPTED).json(result);
     } 
-    
-
+    @Post()
+    public async createLetter(@Res()res,@Body() letter:EndorsmentEntity){
+        const result = await this.endorsmentService.createEndorsment(letter)
+        res.status(HttpStatus.ACCEPTED).json(result)
+    }
 
 
 

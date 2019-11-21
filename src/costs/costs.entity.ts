@@ -12,7 +12,7 @@ export class CostsEntity {//a
   @Column()
   name:string
 
-  @Column('decimal')
+  @Column({type:'decimal',precision:10,scale:2})
   amount:number
 
 
